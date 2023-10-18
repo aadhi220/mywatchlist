@@ -1,0 +1,12 @@
+  MYWATCHLIST
+--------------------
+
+- include 2 Apis 
+   - first one for fetching movie or anime details from internet 
+   - second custom one for adding favourite ones
+   - search
+   - props or redux
+   - movie card should have info on hover like aniwatch 
+   - watchlist categorising like aniwatch( if it is possible with json server) -- try using categorie id (1-watched , 2-plan to  watch ,3-dropped etc) do all the relation part on client side
+   -use context api
+   

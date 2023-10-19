@@ -12,8 +12,8 @@ export default function Header() {
   return (
     <Navbar
     variant="gradient"
-    color="blue-gray"
-    className=" w-[100%] from-blue-gray-900 to-blue-gray-800 px-4 py-3"
+    color="#111317"
+    className=" w-[100%] fixed bg-[#111317] px-4 py-3"
     fullWidth={true}
   >
 
@@ -23,7 +23,7 @@ export default function Header() {
         as="a"
         href="#"
         variant="h6"
-        className="mr-4 ml-2 cursor-pointer py-1.5"
+        className=" absolute left-0  cursor-pointer bg-[#323744] p-5"
       >
        <Link to={'/'}> MyMovieWatchlist</Link>
       </Typography>

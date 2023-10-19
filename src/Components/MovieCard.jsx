@@ -1,49 +1,44 @@
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Typography,
-    Button,
-  } from "@material-tailwind/react";
-   
-  export default function MovieCard() {
-    return (
-      <Card className="w-[20rem] h-[25rem]">
-        <CardHeader shadow={false} floated={false} className="h-96">
-          <img
-            src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80"
-            alt="card-image"
-            className="h-full w-full object-cover"
-          />
-        </CardHeader>
-        <CardBody>
-          <div className="mb-2 flex items-center justify-between">
-            <Typography color="blue-gray" className="font-medium">
-              Apple AirPods
-            </Typography>
-            <Typography color="blue-gray" className="font-medium">
-              $95.00
-            </Typography>
+import React from "react";
+import { useState, useEffect } from "react";
+import tmdbAxiosInstance from "../tmdbAxiosInstance";
+
+
+export default function MovieCard({ fetchUrl }) {
+
+  const [allMovies, setAllMoives] = useState([]);
+
+  const baseUrl = "https://image.tmdb.org/t/p/original/";
+
+  const fetchData = async () => {
+    const { data } = await tmdbAxiosInstance.get(fetchUrl);
+  
+    setAllMoives(data.results);
+    
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+  return (
+    <>
+    <div className="grid grid-cols-6 gap-4 ">
+      
+        { allMovies.length>0? allMovies?.map((item,index) => (
+          ( item.name && <div key={index} className="card   w-[220px] p-2 rounded-lg ">
+            <img
+              src={`${baseUrl}/${item.poster_path}`}
+              alt=""
+              className="image w-[200px]"
+            />
+            <div className="movie-name">{item.name}</div>
+            <div>2023</div>
           </div>
-          {/* <Typography
-            variant="small"
-            color="gray"
-            className="font-normal opacity-75"
-          >
-            With plenty of talk and listen time, voice-activated Siri access, and
-            an available wireless charging case.
-          </Typography> */}
-        </CardBody>
-        <CardFooter className="pt-0">
-          <Button
-            ripple={false}
-            fullWidth={true}
-            className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-          >
-            Add to Cart
-          </Button>
-        </CardFooter>
-      </Card>
-    );
-  }
+        ))): <div>fdsf</div> }
+
+        
+  
+    </div>
+
+      
+    </>
+  );
+}

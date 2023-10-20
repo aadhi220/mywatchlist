@@ -34,7 +34,7 @@ export default function MovieCard() {
   }, []);
   return (
     <>
-    <div className="grid grid-cols-6 gap-4 ">
+    <div className="grid xl:grid-cols-6 sm:grid-cols-3 lg:grid-cols-4 gap-4  ">
       
         { allMovies.length>0? allMovies?.map((item,index) => (
           ( item.title && <div key={index} className="card   w-[220px] p-2 rounded-lg ">
@@ -44,9 +44,9 @@ export default function MovieCard() {
               className="image w-[200px]"
             />
             <div className="movie-name">{item.title}</div>
-            <div>2023</div>
+            <div className="flex justify-between "><span>{item.release_date.split('-')[0]}</span> <span><i className="fa-solid fa-star fa-sm me-1" style={{color: "#c7cbd1"}}></i>{parseFloat(item.vote_average).toFixed(1)}</span> </div>
           </div>
-        ))): <div>fdsf</div> }
+        ))): <div>Api is loading</div> }
 
         
   

@@ -8,3 +8,7 @@
     color: white;
     /* box-shadow: 5px 5px bisque; */
 }
+
+.image:hover +.card-hover{
+    display: block;
+}

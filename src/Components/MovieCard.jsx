@@ -1,6 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
+
 export default function MovieCard(pagination) {
   const [allMovies, setAllMoives] = useState([]);
 
@@ -34,6 +42,10 @@ export default function MovieCard(pagination) {
     fetchData();
   }, [pagination]);
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => setOpen(!open);
+
   return (
     <>
       <div className="grid justify-center grid-cols-2 xl:grid-cols-6 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4  ">
@@ -47,14 +59,26 @@ export default function MovieCard(pagination) {
                     key={index}
                     className="card relative  w-[160px] sm:w-[220px] p-2 rounded-lg "
                   >
-                    <div className="">
+                    <div className=" overflow-hidden">
                       <img
                         src={`${baseUrl}/${item.poster_path}`}
                         alt=""
-                        className="image w-[] sm:w-[]"
+                        className="image hover:blur-lg w-[] sm:w-[]"
                       />
 
-                      <div className="w-[300px] h-[500px] sm:[220px] p-2 rounded-lg bg-[#273245e1] hover:block  card-hover absolute top-[20%] left-[60%] hidden   z-10 text-white transition-all"> {item.overview}   </div>
+                      <div className="w-[100%]  h-[320px]   p-2 rounded-lg  hover:block  card-hover absolute top-[0%] left-[0%] hidden  z-10">
+                        {" "}
+                        <Button
+                          onClick={handleOpen}
+                          className="w-[100%] h-[100%] bg-[#000000a5]"
+                          variant=""
+                        >
+                          <i
+                            class="fa-solid fa-plus fa-2xl"
+                            style={{ color: "#ffffff" }}
+                          ></i>
+                        </Button>{" "}
+                      </div>
                     </div>
                     <div className="movie-name">{item.title}</div>
                     <div className="flex justify-between ">
@@ -68,6 +92,42 @@ export default function MovieCard(pagination) {
                       </span>{" "}
                     </div>
                   </div>{" "}
+                  <Dialog
+                    className=" backdrop-blur-none "
+                    open={open}
+                    handler={handleOpen}
+                    animate={{
+                      mount: { scale: 1, y: 0 },
+                      unmount: { scale: 0.9, y: -100 },
+                    }}
+                  >
+                    <DialogHeader>{item.title}</DialogHeader>
+
+                    <DialogBody>
+                      <div>
+                        Release Year : {item.release_date.split("-")[0]}
+                      </div>
+                      <span className="text-[#ff4400] ">Overview : </span>
+                      {item.overview}
+                    </DialogBody>
+                    <DialogFooter>
+                      <Button
+                        variant="text"
+                        color="red"
+                        onClick={handleOpen}
+                        className="mr-1"
+                      >
+                        <span>Back</span>
+                      </Button>
+                      <Button
+                        variant="gradient"
+                        color="green"
+                        onClick={handleOpen}
+                      >
+                        <span>Add To Watchlist</span>
+                      </Button>
+                    </DialogFooter>
+                  </Dialog>
                 </>
               )
           )

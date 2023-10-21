@@ -34,11 +34,11 @@ return await commonAPI("DELETE",`${serverURL}/watchlist/${id}`,{})
 // return await commonAPI("GET",`${serverURL}/categories`,"")  
 // }
 // update category from json server
-        // export const updateCategory = async (id,body)=> {
-        //     // call post http reqest to http://localhost:4000/categories/id to update   categories from   json server
-        // //return response to Category component
-        // return await commonAPI("PUT",`${serverURL}/categories/${id}`,body)  
-        // }
+            export const updateWatchlist = async (id,body)=> {
+                // call post http reqest to http://localhost:4000/categories/id to update   categories from   json server
+            //return response to Category component
+            return await commonAPI("PUT",`${serverURL}/watchlist/${id}`,body)  
+            }
 
 
 

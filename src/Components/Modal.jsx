@@ -8,8 +8,6 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { AddWatchlist } from "../services/allAPI";
-
- 
 export default function DialogDefault({item,toast}) {
   const [open, setOpen] = React.useState(false);
   const [watchlist, setWatchlist] = useState({
@@ -19,6 +17,7 @@ export default function DialogDefault({item,toast}) {
     overview:item.overview,
     vote_average:parseFloat(item.vote_average).toFixed(1)    ,
     id:item.id,
+    status:"planToWatch"
   });
 
   const HandleWatchlist= async()=> {

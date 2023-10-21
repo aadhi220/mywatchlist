@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Modal from './Modal';
+import { toast,ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function MovieCard(pagination) {
   const [allMovies, setAllMoives] = useState([]);
 
@@ -58,7 +60,7 @@ export default function MovieCard(pagination) {
 
                       <div className="w-[100%]  h-[320px]   p-2 rounded-lg  hover:block  card-hover absolute top-[0%] left-[0%] hidden  z-10">
                         {" "}
-                        <Modal item={item}/>
+                        <Modal item={item} toast={toast}/>
                       {" "}
                       </div>
                     </div>
@@ -82,6 +84,7 @@ export default function MovieCard(pagination) {
           <div>Api is loading</div>
         )}
       </div>
+      <ToastContainer theme="colored" autoClose={2000} />
     </>
   );
 }

@@ -33,7 +33,7 @@ export default function SubNav({ allMovies, baseUrl, status,setWatchlistUpdateRe
   }
 console.log(watchlist_update);
 await updateWatchlist(id,watchlist_update) 
-setWatchlistUpdateResponce(id)
+setWatchlistUpdateResponce(item.status)
   }
   return (
     <div className="grid justify-center grid-cols-2 xl:grid-cols-6 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4  ">
@@ -58,7 +58,7 @@ setWatchlistUpdateResponce(id)
                       {" "}
                       {  item.status==="planToWatch" &&  <Button
                           onClick={()=>handleStatus(item.id,item)}
-                          className="w-[100%] h-[50%] bg-[#000000a5]"
+                          className="w-[100%] h-[85%] hover:scale-105 bg-[#000000a5]"
                           variant=""
                         >
                           <i
@@ -77,6 +77,7 @@ setWatchlistUpdateResponce(id)
                             style={{ color: "#ffffff" }}
                           ></i> Add to Favourite
                         </Button>}
+
                         <Button
                           onClick={()=>handleStatus(item.id,item)}
                           className="w-[100%] h-[10%] absolute left-0 bottom-[0px] hover:scale-105 bg-[#ff1111]"

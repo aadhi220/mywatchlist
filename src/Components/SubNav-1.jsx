@@ -1,10 +1,14 @@
 import React from "react";
 import { Button } from "@material-tailwind/react";
-import { updateWatchlist } from "../services/allAPI";
-import { useState } from "react";
-export default function SubNav({ allMovies, baseUrl, status,setWatchlistUpdateResponce }) {
+import { deleteWatchlist, updateWatchlist } from "../services/allAPI";
+import { useState,useRef } from "react";
+export default function SubNav({ allMovies, baseUrl, status,setWatchlistUpdateResponce,windowWidth }) {
     
-
+const handleDelete =async (id)=> {
+  
+  await deleteWatchlist(id)
+  setWatchlistUpdateResponce(id)
+}
 
   const handleStatus= async(id,item)=> {
   let watchlist_update={}
@@ -34,7 +38,12 @@ export default function SubNav({ allMovies, baseUrl, status,setWatchlistUpdateRe
 console.log(watchlist_update);
 await updateWatchlist(id,watchlist_update) 
 setWatchlistUpdateResponce(item.status)
+
+
+
   }
+
+  
   return (
     <div className="grid justify-center grid-cols-2 xl:grid-cols-6 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4  ">
       {allMovies.length > 0 ? (
@@ -54,42 +63,48 @@ setWatchlistUpdateResponce(item.status)
                       className="image hover:blur-lg w-[] sm:w-[]"
                     />
 
-                    <div className="w-[100%]  h-[100%]   p-2 rounded-lg  hover:block  card-hover absolute top-[0%] left-[0%] hidden  z-10">
-                      {" "}
-                      {  item.status==="planToWatch" &&  <Button
-                          onClick={()=>handleStatus(item.id,item)}
-                          className="w-[100%] h-[85%] hover:scale-105 bg-[#000000a5]"
-                          variant=""
-                        >
-                          <i
-                            class="fa-solid fa-check  fa-2xl"
-                            style={{ color: "#ffffff" }}
-                          ></i> Watched?
-                        </Button >}
+             { windowWidth>768 &&
 
-                        {  item.status==="watched" &&  <Button
-                          onClick={()=>handleStatus(item.id,item)}
-                          className="w-[100%] h-[85%] hover:scale-105 bg-[#000000a5]"
-                          variant=""
-                        >
-                          <i
-                            class="fa-solid fa-check  fa-2xl"
-                            style={{ color: "#ffffff" }}
-                          ></i> Add to Favourite
-                        </Button>}
+<div className="w-[100%]  h-[100%]   p-2 rounded-lg  hover:block  card-hover absolute top-[0%] left-[0%]  hidden z-10">
+{" "}
+{  item.status==="planToWatch" &&  <Button
+    onClick={()=>handleStatus(item.id,item)}
+    className="w-[100%] h-[85%] hover:scale-105 bg-[#000000a5]"
+    variant=""
+  >
+    <i
+      class="fa-solid fa-check  fa-2xl"
+      style={{ color: "#ffffff" }}
+    ></i> Watched?
+  </Button >}
 
-                        <Button
-                          onClick={()=>handleStatus(item.id,item)}
-                          className="w-[100%] h-[10%] absolute left-0 bottom-[0px] hover:scale-105 bg-[#ff1111]"
-                          variant=""
-                        >
-                          <i
-                            class="fa-solid fa-check  fa-2xl"
-                            style={{ color: "red" }}
-                          ></i> Remove?
-                        </Button>
+  {  item.status==="watched" &&  <Button
+    onClick={()=>handleStatus(item.id,item)}
+    className="w-[100%] h-[85%] hover:scale-105 bg-[#000000a5]"
+    variant=""
+  >
+    <i
+      class="fa-solid fa-check  fa-2xl"
+      style={{ color: "#ffffff" }}
+    ></i> Add to Favourite
+  </Button>}
 
-                    </div>
+  <Button
+    onClick={()=>handleDelete(item.id)}
+    className="w-[100%] h-[10%]  bg-[#ff1111]"
+    variant=""
+  >
+    <i
+      class="fa-solid fa-check  fa-2xl"
+      style={{ color: "red" }}
+    ></i> Remove?
+  </Button>
+
+</div>  
+
+             }
+
+             
                   </div>
                   <div className="movie-name">{item.title}</div>
                   <div className="flex justify-between ">

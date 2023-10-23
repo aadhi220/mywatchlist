@@ -12,7 +12,7 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
-export default function MovieCard2() {
+export default function MovieCard2({windowWidth}) {
   const [watchlistUpdateResponce,setWatchlistUpdateResponce]=useState()
   const [allMovies, setAllMoives] = useState([]);
   const navTab = [
@@ -40,6 +40,8 @@ export default function MovieCard2() {
       setAllMoives(data);
     } catch (error) {}
   };
+  
+
 
   useEffect(() => {
     getAddedWatchlist();
@@ -68,6 +70,7 @@ export default function MovieCard2() {
                 status={status}
                 allMovies={allMovies}
                 setWatchlistUpdateResponce={setWatchlistUpdateResponce}
+                windowWidth={windowWidth}
               />
             </TabPanel>
           ))}

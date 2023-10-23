@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { deleteWatchlist, updateWatchlist } from "../services/allAPI";
-import { useState,useRef } from "react";
+
+import Mobile_modal from "./Moblie_modal";
 export default function SubNav({ allMovies, baseUrl, status,setWatchlistUpdateResponce,windowWidth }) {
+  // const[mobileViewActionStatus,setMobileViewActionStatus]=useState("")
+
+  // if(mobileViewActionStatus==="delete"){
+  //   handleDelete();
+  // }else if( mobileViewActionStatus==="watched"){
+    
+  // }
     
 const handleDelete =async (id)=> {
   
@@ -10,7 +18,7 @@ const handleDelete =async (id)=> {
   setWatchlistUpdateResponce(id)
 }
 
-  const handleStatus= async(id,item)=> {
+  const handleStatus= async(item)=> {
   let watchlist_update={}
     if(item.status==='planToWatch')
   {
@@ -36,8 +44,8 @@ const handleDelete =async (id)=> {
     }
   }
 console.log(watchlist_update);
-await updateWatchlist(id,watchlist_update) 
-setWatchlistUpdateResponce(item.status)
+await updateWatchlist(item.id,watchlist_update) 
+setWatchlistUpdateResponce(item.title+item.status)
 
 
 
@@ -63,12 +71,12 @@ setWatchlistUpdateResponce(item.status)
                       className="image hover:blur-lg w-[] sm:w-[]"
                     />
 
-             { windowWidth>768 &&
+             { windowWidth>500 &&
 
 <div className="w-[100%]  h-[100%]   p-2 rounded-lg  hover:block  card-hover absolute top-[0%] left-[0%]  hidden z-10">
 {" "}
 {  item.status==="planToWatch" &&  <Button
-    onClick={()=>handleStatus(item.id,item)}
+    onClick={()=>handleStatus(item)}
     className="w-[100%] h-[85%] hover:scale-105 bg-[#000000a5]"
     variant=""
   >
@@ -79,7 +87,7 @@ setWatchlistUpdateResponce(item.status)
   </Button >}
 
   {  item.status==="watched" &&  <Button
-    onClick={()=>handleStatus(item.id,item)}
+    onClick={()=>handleStatus(item)}
     className="w-[100%] h-[85%] hover:scale-105 bg-[#000000a5]"
     variant=""
   >
@@ -100,6 +108,15 @@ setWatchlistUpdateResponce(item.status)
     ></i> Remove?
   </Button>
 
+</div>  
+
+             }
+
+{ windowWidth<500 &&
+
+<div className="w-[100%]  h-[100%]   p-2 rounded-lg  hover:block  card-hover absolute top-[0%] left-[0%]   z-10">
+
+<Mobile_modal handleDelete={handleDelete} handleStatus={handleStatus} item={item}/>
 </div>  
 
              }

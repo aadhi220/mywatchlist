@@ -1,8 +1,6 @@
-import React from "react";
-import MovieCard2 from "../Components/MovieCard2";
+import React, { useEffect, useState } from 'react';
 
-import { useEffect, useState } from 'react';
-export default function Watchlist() {
+const DynamicWindowWidth = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -16,13 +14,12 @@ export default function Watchlist() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-console.log(windowWidth);
+
   return (
-    <>
-      <div className="p-5  pt-[120px]">
-        <MovieCard2 windowWidth={windowWidth} />
-     
-      </div>
-    </>
+    <div>
+      <p>Inner width = {windowWidth}</p>
+    </div>
   );
-}
+};
+
+export default DynamicWindowWidth;

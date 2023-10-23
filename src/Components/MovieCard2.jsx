@@ -13,6 +13,7 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 export default function MovieCard2() {
+  const [watchlistUpdateResponce,setWatchlistUpdateResponce]=useState()
   const [allMovies, setAllMoives] = useState([]);
   const navTab = [
     {
@@ -25,6 +26,12 @@ export default function MovieCard2() {
       value: "watched",
       status: `watched`,
     },
+
+    {
+      label: "My Favourites",
+      value: "favourite",
+      status:`favourite`,
+    },
   ];
   const baseUrl = "https://image.tmdb.org/t/p/original/";
   const getAddedWatchlist = async () => {
@@ -36,7 +43,7 @@ export default function MovieCard2() {
 
   useEffect(() => {
     getAddedWatchlist();
-  }, [allMovies]);
+  }, [watchlistUpdateResponce]);
   return (
     <>
       <Tabs id="custom-animation" value="planToWatch">
@@ -60,6 +67,7 @@ export default function MovieCard2() {
                 baseUrl={baseUrl}
                 status={status}
                 allMovies={allMovies}
+                setWatchlistUpdateResponce={setWatchlistUpdateResponce}
               />
             </TabPanel>
           ))}

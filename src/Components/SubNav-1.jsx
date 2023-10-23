@@ -2,22 +2,38 @@ import React from "react";
 import { Button } from "@material-tailwind/react";
 import { updateWatchlist } from "../services/allAPI";
 import { useState } from "react";
-export default function SubNav({ allMovies, baseUrl, status }) {
+export default function SubNav({ allMovies, baseUrl, status,setWatchlistUpdateResponce }) {
     
-  const [watchlist, setWatchlist] = useState({ });
+
 
   const handleStatus= async(id,item)=> {
-setWatchlist({
-  title:item.title,
-  poster_path:item.poster_path,
-  year:item.year,
-  overview:item.overview,
-  vote_average:item.vote_average,
-  id:item.id,
-  status:"Watched"
-})
-
-const responce= await updateWatchlist(id,watchlist) 
+  let watchlist_update={}
+    if(item.status==='planToWatch')
+  {
+     watchlist_update={
+      title:item.title,
+      poster_path:item.poster_path,
+      year:item.year,
+      overview:item.overview,
+      vote_average:item.vote_average,
+      id:item.id,
+      status:"watched"
+    }
+  }else if(item.status==="watched")
+  {
+     watchlist_update={
+      title:item.title,
+      poster_path:item.poster_path,
+      year:item.year,
+      overview:item.overview,
+      vote_average:item.vote_average,
+      id:item.id,
+      status:"favourite"
+    }
+  }
+console.log(watchlist_update);
+await updateWatchlist(id,watchlist_update) 
+setWatchlistUpdateResponce(id)
   }
   return (
     <div className="grid justify-center grid-cols-2 xl:grid-cols-6 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4  ">
@@ -40,16 +56,38 @@ const responce= await updateWatchlist(id,watchlist)
 
                     <div className="w-[100%]  h-[100%]   p-2 rounded-lg  hover:block  card-hover absolute top-[0%] left-[0%] hidden  z-10">
                       {" "}
-                      <Button
+                      {  item.status==="planToWatch" &&  <Button
                           onClick={()=>handleStatus(item.id,item)}
-                          className="w-[100%] h-[100%] bg-[#000000a5]"
+                          className="w-[100%] h-[50%] bg-[#000000a5]"
                           variant=""
                         >
                           <i
                             class="fa-solid fa-check  fa-2xl"
                             style={{ color: "#ffffff" }}
                           ></i> Watched?
+                        </Button >}
+
+                        {  item.status==="watched" &&  <Button
+                          onClick={()=>handleStatus(item.id,item)}
+                          className="w-[100%] h-[85%] hover:scale-105 bg-[#000000a5]"
+                          variant=""
+                        >
+                          <i
+                            class="fa-solid fa-check  fa-2xl"
+                            style={{ color: "#ffffff" }}
+                          ></i> Add to Favourite
+                        </Button>}
+                        <Button
+                          onClick={()=>handleStatus(item.id,item)}
+                          className="w-[100%] h-[10%] absolute left-0 bottom-[0px] hover:scale-105 bg-[#ff1111]"
+                          variant=""
+                        >
+                          <i
+                            class="fa-solid fa-check  fa-2xl"
+                            style={{ color: "red" }}
+                          ></i> Remove?
                         </Button>
+
                     </div>
                   </div>
                   <div className="movie-name">{item.title}</div>

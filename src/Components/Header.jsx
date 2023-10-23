@@ -17,8 +17,8 @@ export default function Header() {
     
     <div className="flex flex-wrap items-center justify-between gap-y-4 text-white">
       <Typography
-        as="a"
-        href="#"
+      
+      
         variant="h6"
         className="   cursor-pointer bg-[#323744] p-4"
       >

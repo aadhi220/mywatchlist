@@ -157,7 +157,7 @@ return (
       ) : (
      <>
          
-          <div className="  h-[500px]  gap-4" style={{display:'flex',justifyContent:"center",alignItems:'center',flexDirection:'column'}}><DefaultSpinner/>  <div className="text-white w-[100%] text-center bg-black rounded-lg ">{errorMessage}</div></div>
+          <div className="  h-[500px]  gap-4" style={{display:'flex',justifyContent:"center",alignItems:'center',flexDirection:'column'}}>{  errorMessage!=="The Watchlist is Empty"  &&  <DefaultSpinner/>}  <div className="text-white w-[100%] text-center bg-black rounded-lg ">{errorMessage}</div></div>
      </>
       )}
     </div>

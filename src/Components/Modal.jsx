@@ -36,6 +36,7 @@ setIsLoading(true)
 
                 handleOpen();
         }else {
+          setIsLoading(false)
             toast.error(`${item.title} already in watchlist`)
             handleOpen();
         }

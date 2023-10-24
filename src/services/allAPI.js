@@ -1,7 +1,9 @@
 import { commonAPI } from "./commonAPI";
 import { serverURL } from "./serverURL";
 
+
 export const AddWatchlist = async (body) => {
+
   return await commonAPI("POST", `${serverURL}/watchlist`, body);
 };
 

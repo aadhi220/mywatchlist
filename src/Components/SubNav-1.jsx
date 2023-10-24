@@ -2,8 +2,12 @@ import { Button } from "@material-tailwind/react";
 import { deleteWatchlist, updateWatchlist } from "../services/allAPI";
 
 import Mobile_modal from "./Moblie_modal";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import DefaultSpinner from "./Spinner";
 export default function SubNav({ allMovies, baseUrl, status,setWatchlistUpdateResponce,windowWidth,errorMessage }) {
   // const[mobileViewActionStatus,setMobileViewActionStatus]=useState("")
+  const[isloading,setIsLoading]=useState(false)
 
   // if(mobileViewActionStatus==="delete"){
   //   handleDelete();
@@ -12,12 +16,15 @@ export default function SubNav({ allMovies, baseUrl, status,setWatchlistUpdateRe
   // }
     
 const handleDelete =async (id)=> {
-  
+  setIsLoading(true)
   await deleteWatchlist(id)
+ 
   setWatchlistUpdateResponce(id)
+  setIsLoading(false)
 }
 
   const handleStatus= async(item)=> {
+    setIsLoading(true);
   let watchlist_update={}
     if(item.status==='planToWatch')
   {
@@ -40,17 +47,27 @@ const handleDelete =async (id)=> {
       vote_average:item.vote_average,
       id:item.id,
       status:"favourite"
+      
+
+
     }
+    toast.success(`${item.title} added to favourites`)
   }
-console.log(watchlist_update);
-await updateWatchlist(item.id,watchlist_update) 
+// console.log(watchlist_update);
+const responce =await updateWatchlist(item.id,watchlist_update) ;
+setIsLoading(false)
 setWatchlistUpdateResponce(item.title+item.status)
 
 
 
   }
 
-  
+  if(isloading===true) {
+return (
+<div className="  h-[500px]" style={{display:'flex',justifyContent:"center",alignItems:'center'}}><DefaultSpinner/></div>
+);
+
+}else {
   return (
     <div className="grid justify-center grid-cols-2 xl:grid-cols-6 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4  ">
       {allMovies?.length > 0 ? (
@@ -138,8 +155,12 @@ setWatchlistUpdateResponce(item.title+item.status)
             )
         )
       ) : (
-        <div className="text-white w-[100%] text-center bg-black rounded-lg ">{errorMessage}</div>
+     <>
+         
+          <div className="  h-[500px]  gap-4" style={{display:'flex',justifyContent:"center",alignItems:'center',flexDirection:'column'}}><DefaultSpinner/>  <div className="text-white w-[100%] text-center bg-black rounded-lg ">{errorMessage}</div></div>
+     </>
       )}
     </div>
   );
+}
 }

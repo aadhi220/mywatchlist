@@ -3,12 +3,15 @@ import { useState, useEffect } from "react";
 import Modal from './Modal';
 import { toast,ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DefaultSpinner from "./Spinner";
 export default function MovieCard(pagination) {
   const [allMovies, setAllMoives] = useState([]);
+  const[isloading,setIsLoading]=useState(false)
 
   const baseUrl = "https://image.tmdb.org/t/p/original/";
 
   const fetchData = async () => {
+    setIsLoading(true)
     const options = {
       method: "GET",
       headers: {
@@ -26,6 +29,7 @@ export default function MovieCard(pagination) {
       .then((response) => {
         console.log(response);
         setAllMoives(response.results);
+        setIsLoading(false)
       })
       .catch((err) => console.error(err));
 
@@ -36,8 +40,11 @@ export default function MovieCard(pagination) {
     fetchData();
   }, [pagination]);
 
+if(isloading===true){
 
-
+  return (<div className="  h-[500px]" style={{display:'flex',justifyContent:"center",alignItems:'center'}}><DefaultSpinner/></div>)
+}else
+{
   return (
     <>
       <div className="grid justify-center grid-cols-2 xl:grid-cols-6 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4  ">
@@ -60,7 +67,7 @@ export default function MovieCard(pagination) {
 
                       <div className="w-[100%]  h-[320px]   p-2 rounded-lg  hover:block  card-hover absolute top-[0%] left-[0%] hidden  z-10">
                         {" "}
-                        <Modal item={item} toast={toast}/>
+                        <Modal item={item} setIsLoading={setIsLoading} toast={toast}/>
                       {" "}
                       </div>
                     </div>
@@ -87,4 +94,5 @@ export default function MovieCard(pagination) {
       <ToastContainer theme="colored" autoClose={2000} />
     </>
   );
+}
 }

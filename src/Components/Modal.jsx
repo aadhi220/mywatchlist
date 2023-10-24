@@ -8,7 +8,7 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { AddWatchlist } from "../services/allAPI";
-export default function DialogDefault({item,toast}) {
+export default function DialogDefault({item,toast,setIsLoading}) {
   const [open, setOpen] = React.useState(false);
   const [watchlist, setWatchlist] = useState({
     title:item.title,
@@ -21,12 +21,14 @@ export default function DialogDefault({item,toast}) {
   });
 
   const HandleWatchlist= async()=> {
-
+setIsLoading(true)
 // console.log(watchlist);
     try {
         const responce = await AddWatchlist(watchlist)
 
         if (responce.status >=200 && responce.status <=300) {
+
+          setIsLoading(false)
             toast.success(`${item.title} added to watchlist!`)
 
                 

@@ -8,3 +8,14 @@
   box-sizing: border-box;
   
 }
+
+::-webkit-scrollbar{
+  background-color: rgb(0, 0, 0);
+  border-radius: 10px;
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+
+  background-color: antiquewhite;
+  border-radius: 5px;
+} 

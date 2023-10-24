@@ -47,7 +47,7 @@ if(isloading===true){
 {
   return (
     <>
-      <div className="grid justify-center grid-cols-2 xl:grid-cols-6 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4  ">
+      <div className="grid justify-items-center grid-cols-2 xl:grid-cols-6 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4  ">
         {allMovies.length > 0 ? (
           allMovies?.map(
             (item, index) =>

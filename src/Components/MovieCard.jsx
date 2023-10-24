@@ -81,7 +81,7 @@ export default function MovieCard(pagination) {
               )
           )
         ) : (
-          <div>Api is loading</div>
+          <div className="text-white ">High Load on Server..! Please wait a moment</div>
         )}
       </div>
       <ToastContainer theme="colored" autoClose={2000} />

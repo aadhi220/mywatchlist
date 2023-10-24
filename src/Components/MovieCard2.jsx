@@ -15,6 +15,7 @@ import {
 export default function MovieCard2({windowWidth}) {
   const [watchlistUpdateResponce,setWatchlistUpdateResponce]=useState()
   const [allMovies, setAllMoives] = useState([]);
+  const [errorMessage,setErrorMessage]=useState("The Watchlist is Empty")
   const navTab = [
     {
       label: "Plan To Watch",
@@ -36,9 +37,15 @@ export default function MovieCard2({windowWidth}) {
   const baseUrl = "https://image.tmdb.org/t/p/original/";
   const getAddedWatchlist = async () => {
     try {
-      const { data } = await getAllWatchlist();
-      setAllMoives(data);
-    } catch (error) {}
+      const responce = await getAllWatchlist();
+      setAllMoives(responce.data);
+      console.log(responce.message);
+      if(responce.message==="Network Error"){
+        setErrorMessage("no responce from api..! please wait while the server loads")
+      }
+    } catch ( error) {
+      
+    }
   };
   
 
@@ -71,6 +78,7 @@ export default function MovieCard2({windowWidth}) {
                 allMovies={allMovies}
                 setWatchlistUpdateResponce={setWatchlistUpdateResponce}
                 windowWidth={windowWidth}
+                errorMessage={errorMessage}
               />
             </TabPanel>
           ))}

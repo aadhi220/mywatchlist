@@ -1,9 +1,8 @@
-import React, { useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { deleteWatchlist, updateWatchlist } from "../services/allAPI";
 
 import Mobile_modal from "./Moblie_modal";
-export default function SubNav({ allMovies, baseUrl, status,setWatchlistUpdateResponce,windowWidth }) {
+export default function SubNav({ allMovies, baseUrl, status,setWatchlistUpdateResponce,windowWidth,errorMessage }) {
   // const[mobileViewActionStatus,setMobileViewActionStatus]=useState("")
 
   // if(mobileViewActionStatus==="delete"){
@@ -54,7 +53,7 @@ setWatchlistUpdateResponce(item.title+item.status)
   
   return (
     <div className="grid justify-center grid-cols-2 xl:grid-cols-6 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4  ">
-      {allMovies.length > 0 ? (
+      {allMovies?.length > 0 ? (
         allMovies?.map(
           (item, index) =>
             item.status === status && (
@@ -139,7 +138,7 @@ setWatchlistUpdateResponce(item.title+item.status)
             )
         )
       ) : (
-        <div>Api is loading</div>
+        <div className="text-white w-[100%] text-center bg-black rounded-lg ">{errorMessage}</div>
       )}
     </div>
   );

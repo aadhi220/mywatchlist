@@ -1,65 +1,124 @@
 import { Typography } from "@material-tailwind/react";
- 
-const LINKS = [
-  {
-    title: "Product",
-    items: ["Overview", "Features", "Solutions", "Tutorials"],
-  },
-  {
-    title: "Company",
-    items: ["About us", "Careers", "Press", "News"],
-  },
-  {
-    title: "Resource",
-    items: ["Blog", "Newsletter", "Events", "Help center"],
-  },
-];
+import { Link } from "react-router-dom"; 
+
  
 const currentYear = new Date().getFullYear();
  
 export default function Footer() {
   return (
-    <footer style={{color:'white '}} className="relative w-full mt-1 bg-[#111317]  ">
+    <footer style={{color:'white '}} className="relative overflow-hidden w-full mt-1 bg-[#111317]  ">
       <div className="mx-auto w-full max-w-7xl px-8">
-        <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
-          <Typography variant="h5" className="mb-6">
+        <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-3">
+        <Link to={'/'}>  <Typography variant="h5" className="mb-6  w-[fit-content] mt-[2rem]">
             MyMovieWatchList
-          </Typography>
-          <div className="grid grid-cols-3 justify-between gap-4">
-            {LINKS.map(({ title, items }) => (
-              <ul key={title}>
+          </Typography></Link>
+          <div className="grid grid-cols-2 mt-[2rem] justify-between gap-4">
+          
+              <ul >
                 <Typography
                   variant="small"
-                  color="blue-gray"
-                  className="mb-3 font-medium opacity-40"
+                  color="white"
+                  className="mb-3 font-medium opacity-90"
                 >
-                  {title}
+                  Links
                 </Typography>
-                {items.map((link) => (
-                  <li key={link}>
+                
+               
+                  <li >
                     <Typography
-                      as="a"
-                      href="#"
+                    
                       color="gray"
-                      className="py-1.5 font-normal transition-colors hover:text-blue-gray-900"
+                      className="py-1.5 font-normal transition-colors hover:text-white"
                     >
-                      {link}
+                     <Link to={`/`}>Home</Link>
+                     
+                    </Typography>
+                    <Typography
+                    
+                    color="gray"
+                    className="py-1.5 font-normal transition-colors hover:text-white"
+                  >
+                   <Link to={`/watchlist`}>Watchlist</Link>
+                   
+                  </Typography>
+                  <Typography
+                    
+                    color="gray"
+                    className="py-1.5 font-normal transition-colors hover:text-white"
+                  >
+                   <Link to={`/`}>About</Link>
+                   
+                  </Typography>
+                  </li>
+          
+              </ul>
+              <ul >
+                <Typography
+                  variant="small"
+                  color="white"
+                  className="mb-3 font-medium opacity-90"
+                >
+                  Guides
+                </Typography>
+                
+               
+                  <li >
+                    <Typography
+                    as="a"
+                    href="https://react.dev"
+                    target="blank"
+                      color="gray"
+                      className="py-1.5 font-normal transition-colors hover:text-white"
+                    >
+                     React
+                     
+                    </Typography>
+                    <Typography
+                    as="a"
+                    href="https://developer.themoviedb.org/docs"
+                    target="blank"
+                      color="gray"
+                      className="py-1.5 font-normal transition-colors hover:text-white"
+                    >
+                     TmdbApi
+                     
+                    </Typography>
+                    <Typography
+                    as="a"
+                    href="https://tailwindcss.com"
+                    target="blank"
+                      color="gray"
+                      className="py-1.5 font-normal transition-colors hover:text-white"
+                    >
+                     Tailwind
+                     
                     </Typography>
                   </li>
-                ))}
+          
               </ul>
-            ))}
+         
+        
           </div>
+
+          <div className="mt-[2rem]"><h2 className="text-xl">Contact us</h2>
+          <div className="grid grid-cols-2 w-[100%] mt-[1rem] gap-4">
+              <input type="text" className="w-[100%] p-1 rounded-md" placeholder="email" />
+              <button className="bg-[red] p-1 rounded-md">Subscribe</button>
+          </div>
+            
+            
+            </div>
         </div>
+        
         <div className="mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between">
           <Typography
             variant="small"
-            className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
+            className="mb-4 text-center font-normal opacity-[80%] text-white md:mb-0"
           >
-            &copy; {currentYear} <a href="https://material-tailwind.com/">Material Tailwind</a>. All
+            &copy; {currentYear} <a href="https://material-tailwind.com/">MyMovieWatchlist</a>. All
             Rights Reserved.
           </Typography>
-          <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
+          <div className="flex gap-4 text-white sm:justify-center">
             <Typography as="a" href="#" className="opacity-80 transition-opacity hover:opacity-100">
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
@@ -103,6 +162,8 @@ export default function Footer() {
             </Typography>
           </div>
         </div>
+
+        
       </div>
     </footer>
   );
